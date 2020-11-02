@@ -1,0 +1,703 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0078)http://www.cvlibs.net/datasets/kitti/eval_depth.php?benchmark=depth_completion -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>The KITTI Vision Benchmark Suite</title>
+<link rel="stylesheet" type="text/css" href="./The KITTI Vision Benchmark Suite_files/style.css" media="screen">
+<style type="text/css">.fb_hidden{position:absolute;top:-10000px;z-index:10001}.fb_reposition{overflow:hidden;position:relative}.fb_invisible{display:none}.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:"lucida grande", tahoma, verdana, arial, sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}.fb_reset>div{overflow:hidden}@keyframes fb_transform{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}.fb_animate{animation:fb_transform .3s forwards}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}.fb_dialog_advanced{border-radius:8px;padding:10px}.fb_dialog_content{background:#fff;color:#373737}.fb_dialog_close_icon{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px}.fb_dialog_mobile .fb_dialog_close_icon{left:5px;right:auto;top:5px}.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}.fb_dialog_close_icon:hover{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent}.fb_dialog_close_icon:active{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent}.fb_dialog_iframe{line-height:0}.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #365899;color:#fff;font-size:14px;font-weight:bold;margin:0}.fb_dialog_content .dialog_title>span{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yd/r/Cou7n-nqK52.gif) no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}body.fb_hidden{height:100%;left:0;margin:0;overflow:visible;position:absolute;top:-10000px;transform:none;width:100%}.fb_dialog.fb_dialog_mobile.loading{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/ya/r/3rhSv5V8j3o.gif) white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}.fb_dialog.fb_dialog_mobile.loading.centered{background:none;height:auto;min-height:initial;min-width:initial;width:auto}.fb_dialog.fb_dialog_mobile.loading.centered #fb_dialog_loader_spinner{width:100%}.fb_dialog.fb_dialog_mobile.loading.centered .fb_dialog_content{background:none}.loading.centered #fb_dialog_loader_close{clear:both;color:#fff;display:block;font-size:18px;padding-top:20px}#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .4);bottom:0;left:0;min-height:100%;position:absolute;right:0;top:0;width:100%;z-index:10000}#fb-root #fb_dialog_ipad_overlay.hidden{display:none}.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}.fb_dialog_mobile .fb_dialog_iframe{position:sticky;top:0}.fb_dialog_content .dialog_header{background:linear-gradient(from(#738aba), to(#2c4987));border-bottom:1px solid;border-color:#1d3c78;box-shadow:white 0 1px 1px -1px inset;color:#fff;font:bold 14px Helvetica, sans-serif;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}.fb_dialog_content .dialog_header table{height:43px;width:100%}.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px}.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px}.fb_dialog_content .touchable_button{background:linear-gradient(from(#4267B2), to(#2a4887));background-clip:padding-box;border:1px solid #29487d;border-radius:3px;display:inline-block;line-height:18px;margin-top:3px;max-width:85px;padding:4px 12px;position:relative}.fb_dialog_content .dialog_header .touchable_button input{background:none;border:none;color:#fff;font:bold 12px Helvetica, sans-serif;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}.fb_dialog_content .dialog_content{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #4a4a4a;border-bottom:0;border-top:0;height:150px}.fb_dialog_content .dialog_footer{background:#f5f6f7;border:1px solid #4a4a4a;border-top-color:#ccc;height:40px}#fb_dialog_loader_close{float:left}.fb_dialog.fb_dialog_mobile .fb_dialog_close_button{text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}#fb_dialog_loader_spinner{animation:rotateSpinner 1.2s linear infinite;background-color:transparent;background-image:url(https://static.xx.fbcdn.net/rsrc.php/v3/yD/r/t-wz8gw1xG1.png);background-position:50% 50%;background-repeat:no-repeat;height:24px;width:24px}@keyframes rotateSpinner{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+.fb_iframe_widget{display:inline-block;position:relative}.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}.fb_iframe_widget iframe{position:absolute}.fb_iframe_widget_fluid_desktop,.fb_iframe_widget_fluid_desktop span,.fb_iframe_widget_fluid_desktop iframe{max-width:100%}.fb_iframe_widget_fluid_desktop iframe{min-width:220px;position:relative}.fb_iframe_widget_lift{z-index:1}.fb_iframe_widget_fluid{display:inline}.fb_iframe_widget_fluid span{width:100%}</style></head>
+<body>
+
+<div id="fb-root" class=" fb_reset"><div style="position: absolute; top: -10000px; width: 0px; height: 0px;"><div><iframe name="fb_xdm_frame_https" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" allow="encrypted-media" id="fb_xdm_frame_https" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" src="./The KITTI Vision Benchmark Suite_files/xd_arbiter.html" style="border: none;"></iframe></div><div></div></div></div>
+<script id="facebook-jssdk" src="./The KITTI Vision Benchmark Suite_files/sdk.js"></script><script>(function(d, s, id) {
+var js, fjs = d.getElementsByTagName(s)[0];
+if (d.getElementById(id)) return;
+js = d.createElement(s); js.id = id;
+js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.6";
+fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<div id="wrapper">
+<div id="header" class="container">
+<div id="logo">
+<h1><a href="http://www.cvlibs.net/datasets/kitti">The KITTI Vision Benchmark Suite</a></h1>
+<h2>A project of <a href="http://www.kit.edu/english" target="_blank">Karlsruhe Institute of Technology</a><br>and
+<a href="http://www.ttic.edu/" target="_blank">Toyota Technological Institute at Chicago</a></h2>
+</div>
+<div id="banner">
+<a href="http://ps.is.tuebingen.mpg.de/" target="_blank"><img src="./The KITTI Vision Benchmark Suite_files/mpi.jpg"></a>
+<a href="http://www.ttic.edu/" target="_blank"><img src="./The KITTI Vision Benchmark Suite_files/ttic.jpg"></a>
+<a href="http://www.kit.edu/english" target="_blank"><img src="./The KITTI Vision Benchmark Suite_files/kit.jpg"></a>
+</div>
+</div>
+<div id="menu" class="container">
+<ul id="navigation">
+<li><a href="http://www.cvlibs.net/datasets/kitti/index.php">home</a></li>
+<li><a href="http://www.cvlibs.net/datasets/kitti/setup.php">setup</a></li>
+<li><a href="http://www.cvlibs.net/datasets/kitti/eval_stereo.php">stereo</a>
+<ul>
+<li><a href="http://www.cvlibs.net/datasets/kitti/eval_stereo_flow.php?benchmark=stereo" "="">Stereo 2012</a></li>
+<li><a href="http://www.cvlibs.net/datasets/kitti/eval_scene_flow.php?benchmark=stereo">Stereo 2015</a></li>
+</ul>
+</li>
+<li><a href="http://www.cvlibs.net/datasets/kitti/eval_flow.php">flow</a>
+<ul>
+<li><a href="http://www.cvlibs.net/datasets/kitti/eval_stereo_flow.php?benchmark=flow" "="">Flow 2012</a></li>
+<li><a href="http://www.cvlibs.net/datasets/kitti/eval_scene_flow.php?benchmark=flow">Flow 2015</a></li>
+</ul>
+</li>
+<li><a href="http://www.cvlibs.net/datasets/kitti/eval_scene_flow.php">sceneflow</a></li>
+
+<li><a href="http://www.cvlibs.net/datasets/kitti/eval_depth_all.php">depth</a>
+<ul>
+<li><a href="http://www.cvlibs.net/datasets/kitti/eval_depth.php?benchmark=depth_completion">Depth Completion</a></li>
+<li><a href="http://www.cvlibs.net/datasets/kitti/eval_depth.php?benchmark=depth_prediction">Depth Prediction</a></li>
+</ul>
+</li>
+
+<li><a href="http://www.cvlibs.net/datasets/kitti/eval_odometry.php">odometry</a></li>
+<li><a href="http://www.cvlibs.net/datasets/kitti/eval_3dobject.php">object</a>
+<ul>
+<li><a href="http://www.cvlibs.net/datasets/kitti/eval_object.php?obj_benchmark=2d" "="">2d object</a></li>
+<li><a href="http://www.cvlibs.net/datasets/kitti/eval_object.php?obj_benchmark=3d" "="">3d object</a></li>
+<li><a href="http://www.cvlibs.net/datasets/kitti/eval_object.php?obj_benchmark=bev">bird's eye view</a></li>
+</ul>
+</li>
+<li><a href="http://www.cvlibs.net/datasets/kitti/eval_tracking.php">tracking</a></li>
+<li><a href="http://www.cvlibs.net/datasets/kitti/eval_road.php">road</a></li>
+<li><a href="http://www.cvlibs.net/datasets/kitti/eval_semantics.php">semantics</a>
+<ul>
+<li><a href="http://www.cvlibs.net/datasets/kitti/eval_semseg.php?benchmark=semantics2015" "="">pixel-level</a></li>
+<li><a href="http://www.cvlibs.net/datasets/kitti/eval_instance_seg.php?benchmark=instanceSeg2015" "="">instance-level</a></li>
+</ul>
+</li>
+<li><a href="http://www.cvlibs.net/datasets/kitti/raw_data.php">raw data</a></li>
+<li><a href="http://www.cvlibs.net/datasets/kitti/user_submit.php">submit results</a></li>
+<!--<li ><a href="jobs.php">jobs</a></li>-->
+</ul>
+</div>
+<div id="top-bar" class="container">
+<div class="bar"><div class="text">
+<a href="https://avg.is.tuebingen.mpg.de/person/ageiger" target="_blank">Andreas Geiger (MPI Tübingen)</a> |
+<a href="http://www.mrt.kit.edu/mitarbeiter_lenz.php" target="_blank">Philip Lenz (KIT)</a> |
+<a href="http://www.mrt.kit.edu/mitarbeiter_stiller.php" target="_blank">Christoph Stiller (KIT)</a> |
+<a href="http://ttic.uchicago.edu/~rurtasun/" target="_blank">Raquel Urtasun (University of Toronto)</a>
+</div></div>
+</div>
+<div id="page" class="container">
+<div id="content">
+
+
+<div class="section">
+<h2 class="title">Depth Completion Evaluation</h2>
+<div class="entry">
+
+<p>
+<img src="./The KITTI Vision Benchmark Suite_files/header_depth.jpg"><br>
+<br>The depth completion and depth prediction evaluation are related to our work published in <a href="http://www.cvlibs.net/publications/Uhrig2017THREEDV.pdf">Sparsity Invariant CNNs (THREEDV 2017)</a>. It <br>contains over 93 thousand depth maps with
+corresponding raw LiDaR scans and RGB images, aligned with the <a href="http://www.cvlibs.net/datasets/kitti/raw_data.php">"raw data"</a> of the KITTI dataset. <br>Given the large amount of training data, this
+dataset shall allow a training of complex deep learning models for the tasks of depth completion <br>and single image depth prediction. Also, we provide
+manually selected images with unpublished depth maps to serve as a benchmark for those <br>two challenging tasks.<br><br>
+
+
+Make sure to unzip annotated depth maps and raw LiDaR scans into the same directory so that all corresponding files end up in the same folder <br>
+structure. 
+The structure of all provided depth maps is aligned with the structure of our raw data to easily find corresponding left and right images, <br>
+or other provided information.
+<br><br>
+
+</p><ul>
+<li><a href="http://www.cvlibs.net/download.php?file=data_depth_annotated.zip" target="_blank">Download annotated depth maps data set (14 GB)</a></li>
+<li><a href="http://www.cvlibs.net/download.php?file=data_depth_velodyne.zip" target="_blank">Download projected raw LiDaR scans data set (2 GB)</a></li>
+<li><a href="http://www.cvlibs.net/download.php?file=data_depth_selection.zip" target="_blank">Download manually selected validation and test data sets (5 GB)</a></li>
+<li><a href="http://www.cvlibs.net/downloads/depth_devkit.zip" target="_blank">Download development kit (48 K)</a></li>
+</ul>
+<br>
+<b>Note:</b> On 12.04.2018 we have fixed a small error in the file data_depth_velodyne.zip, please download this file again if you have an old version.
+<p></p>
+<p>
+<br>
+All methods providing less than 100 % density have been interpolated using simple background interpolation as explained in the corresponding header file in the development kit.
+</p>
+<ul>
+Our evaluation table ranks all methods according to the root mean squared error (RMSE) of the inverse depth maps. <br>
+However, we also provide some other metrics:
+<li><b>iRMSE:</b> &nbsp;Root mean squared error of the inverse depth [1/km]</li>
+<li><b>iMAE:</b> &nbsp;&nbsp;&nbsp;Mean absolute error of the inverse depth [1/km]</li>
+<li><b>RMSE:</b> &nbsp;&nbsp;Root mean squared error [mm]</li>
+<li><b>MAE:</b> &nbsp;&nbsp;&nbsp;&nbsp;Mean absolute error [mm]</li>
+
+</ul>
+<p>
+</p><br>
+
+<div class="alertbox_600"><b>Important Policy Update:</b> As more and more non-published work and re-implementations of existing work is submitted to KITTI, we have established a new policy: from now on, only submissions with significant novelty that are leading to a peer-reviewed paper in a conference or journal are allowed. Minor modifications of existing algorithms or student research projects are not allowed. Such work must be evaluated on a split of the training set. To ensure that our policy is adopted, new users must detail their status, describe their work and specify the targeted venue during registration. Furthermore, we will regularly delete all entries that are 6 months old but are still anonymous or do not have a paper associated with them. For conferences, 6 month is enough to determine if a paper has been accepted and to add the bibliography information. For longer review cycles, you need to resubmit your results.</div><div class="alertbox_600"><b><u><center>Additional information used by the methods</center></u></b><ul><li><img src="./The KITTI Vision Benchmark Suite_files/icon_at.png"> Additional training data: Use of additional data sources for training (see details)</li><li><img src="./The KITTI Vision Benchmark Suite_files/icon_mono.png"> RGB image: Use of RGB images for depth completion</li></ul></div>
+<!--
+<br>
+<a href="http://www.robustvision.net"><center>
+<img src="http://www.robustvision.net/images/banner.png"/></center></a>
+-->
+<br>
+
+
+
+
+<form method="post" action="http://www.cvlibs.net/datasets/kitti/eval_depth_detail.php?benchmark=depth_completion"><table class="results">
+  <tbody><tr class="heading">
+    <td class="results"></td>
+     <td class="results">Method</td>
+     <td class="results">Setting</td>
+     <td class="results">Code</td>
+     <td class="results">iRMSE</td>
+     <td class="results">iMAE</td>
+     <td class="results"><span style="color:red"><u>RMSE</u></span></td>
+     <td class="results">MAE</td>
+     <td class="results">Runtime</td>
+     <td class="results">Environment</td>
+     <td class="results"><input type="submit" value="Compare" name="compare"></td>
+   </tr>
+   <tr>
+    <td class="results">1</td>
+     <td class="results"><a href="http://www.cvlibs.net/datasets/kitti/eval_depth_detail.php?benchmark=depth_completion&amp;result=0c8a6e3bdc1439dbdb935415a867ffef4c0fb57f">RGB_guide&amp;certainty</a></td>
+     <td class="results"></td>
+     <td class="results"></td>
+     <td class="results"> 2.19</td>
+     <td class="results"> 0.93</td>
+     <td class="results"><b>772.87</b></td>
+     <td class="results">215.02</td>
+     <td class="results">0.02 s</td>
+     <td class="results">GPU @ 1.5 Ghz (Python)</td>
+     <td class="results"><input type="checkbox" value="0c8a6e3bdc1439dbdb935415a867ffef4c0fb57f" name="selected[]"></td>
+   </tr>
+   <tr>
+    <td class="results_sub" colspan="11"></td>
+   </tr>
+   <tr>
+    <td class="results">2</td>
+     <td class="results"><a href="http://www.cvlibs.net/datasets/kitti/eval_depth_detail.php?benchmark=depth_completion&amp;result=9471d104263367e729a51945f10f6c12e1c17e9d">DL2</a></td>
+     <td class="results"></td>
+     <td class="results"></td>
+     <td class="results"> 2.79</td>
+     <td class="results"> 1.25</td>
+     <td class="results">775.52</td>
+     <td class="results">245.28</td>
+     <td class="results">0.02 s</td>
+     <td class="results">GPU @ 1.5 Ghz (Python)</td>
+     <td class="results"><input type="checkbox" value="9471d104263367e729a51945f10f6c12e1c17e9d" name="selected[]"></td>
+   </tr>
+   <tr>
+    <td class="results_sub" colspan="11"></td>
+   </tr>
+   <tr>
+    <td class="results">3</td>
+     <td class="results"><a href="http://www.cvlibs.net/datasets/kitti/eval_depth_detail.php?benchmark=depth_completion&amp;result=9d383342821bcfb3ab5baf895b09a4cbb4849543">RGB_guide&amp;certainty</a></td>
+     <td class="results"></td>
+     <td class="results"></td>
+     <td class="results"> 2.35</td>
+     <td class="results"> 1.01</td>
+     <td class="results">775.62</td>
+     <td class="results">223.49</td>
+     <td class="results">0.02 s</td>
+     <td class="results">GPU @ 1.5 Ghz (Python)</td>
+     <td class="results"><input type="checkbox" value="9d383342821bcfb3ab5baf895b09a4cbb4849543" name="selected[]"></td>
+   </tr>
+   <tr>
+    <td class="results_sub" colspan="11"></td>
+   </tr>
+   <tr>
+    <td class="results">4</td>
+     <td class="results"><a href="http://www.cvlibs.net/datasets/kitti/eval_depth_detail.php?benchmark=depth_completion&amp;result=7eb2d890bf7d29439f30185795be8b16c43dc9d6">DL1</a></td>
+     <td class="results"></td>
+     <td class="results"></td>
+     <td class="results"> 2.26</td>
+     <td class="results"> 0.99</td>
+     <td class="results">777.90</td>
+     <td class="results">209.86</td>
+     <td class="results">0.02 s</td>
+     <td class="results">GPU @ 1.5 Ghz (Python)</td>
+     <td class="results"><input type="checkbox" value="7eb2d890bf7d29439f30185795be8b16c43dc9d6" name="selected[]"></td>
+   </tr>
+   <tr>
+    <td class="results_sub" colspan="11"></td>
+   </tr>
+   <tr>
+    <td class="results">5</td>
+     <td class="results"><a href="http://www.cvlibs.net/datasets/kitti/eval_depth_detail.php?benchmark=depth_completion&amp;result=5b86d69c3f7d15e87722a6f7f4ed7fecf99dd05f">DLNL</a></td>
+     <td class="results"></td>
+     <td class="results"></td>
+     <td class="results"> 3.95</td>
+     <td class="results"> 1.54</td>
+     <td class="results">785.98</td>
+     <td class="results">276.68</td>
+     <td class="results">0.02 s</td>
+     <td class="results">GPU @ 1.5 Ghz (Python)</td>
+     <td class="results"><input type="checkbox" value="5b86d69c3f7d15e87722a6f7f4ed7fecf99dd05f" name="selected[]"></td>
+   </tr>
+   <tr>
+    <td class="results_sub" colspan="11"></td>
+   </tr>
+   <tr>
+    <td class="results">6</td>
+     <td class="results"><a href="http://www.cvlibs.net/datasets/kitti/eval_depth_detail.php?benchmark=depth_completion&amp;result=e96bf3ee85b4d8b73e74cd153ba498d8daa4b833">RASP</a></td>
+     <td class="results"></td>
+     <td class="results"></td>
+     <td class="results"> 2.60</td>
+     <td class="results"> 1.21</td>
+     <td class="results">810.62</td>
+     <td class="results">256.00</td>
+     <td class="results">0.1 s</td>
+     <td class="results">GPU @ 1.5 Ghz (Python)</td>
+     <td class="results"><input type="checkbox" value="e96bf3ee85b4d8b73e74cd153ba498d8daa4b833" name="selected[]"></td>
+   </tr>
+   <tr>
+    <td class="results_sub" colspan="11"></td>
+   </tr>
+   <tr>
+    <td class="results">7</td>
+     <td class="results"><a href="http://www.cvlibs.net/datasets/kitti/eval_depth_detail.php?benchmark=depth_completion&amp;result=7c196dc6861f90fb1993c57d865fb49ef543465d">Sparse-to-Dense (gd)</a></td>
+     <td class="results"></td>
+     <td class="results"><a href="https://github.com/fangchangma/self-supervised-depth-completion" target="blank">code</a></td>
+     <td class="results"> 2.80</td>
+     <td class="results"> 1.21</td>
+     <td class="results">814.73</td>
+     <td class="results">249.95</td>
+     <td class="results">0.08 s</td>
+     <td class="results">GPU @ 1.5 Ghz (Python)</td>
+     <td class="results"><input type="checkbox" value="7c196dc6861f90fb1993c57d865fb49ef543465d" name="selected[]"></td>
+   </tr>
+   <tr>
+    <td class="results_sub" colspan="11">F. Ma, G. Cavalheiro and S. Karaman: <a href="http://scholar.google.de/scholar?q=Self-supervised%20Sparse-to-Dense:%20Self-supervised%20Depth%20Completion%20from%20LiDAR%20and%20Monocular%20Camera"> Self-supervised Sparse-to-Dense: Self-
+supervised Depth Completion from LiDAR and 
+Monocular Camera</a>. arXiv preprint arXiv:1807.00275 2018.<br></td>
+   </tr>
+   <tr>
+    <td class="results">8</td>
+     <td class="results"><a href="http://www.cvlibs.net/datasets/kitti/eval_depth_detail.php?benchmark=depth_completion&amp;result=19e5c66d29c7adbb4d1914aa7caaf131f7ce1601">NConv-CNN-L2 (gd)</a></td>
+     <td class="results"></td>
+     <td class="results"><a href="https://github.com/abdo-eldesokey/nconv" target="blank">code</a></td>
+     <td class="results"> 2.60</td>
+     <td class="results"> 1.03</td>
+     <td class="results">829.98</td>
+     <td class="results">233.26</td>
+     <td class="results">0.02 s</td>
+     <td class="results">GPU @ 1.5 Ghz (Python)</td>
+     <td class="results"><input type="checkbox" value="19e5c66d29c7adbb4d1914aa7caaf131f7ce1601" name="selected[]"></td>
+   </tr>
+   <tr>
+    <td class="results_sub" colspan="11">A. Eldesokey, M. Felsberg and F. Khan: <a href="http://scholar.google.de/scholar?q=Confidence%20Propagation%20through%20CNNs%20for%20Guided%20Sparse%20Depth%20Regression"> Confidence Propagation through CNNs for 
+Guided Sparse Depth Regression</a>. arXiv preprint arXiv:1811.01791 2018.<br></td>
+   </tr>
+   <tr>
+    <td class="results">9</td>
+     <td class="results"><a href="http://www.cvlibs.net/datasets/kitti/eval_depth_detail.php?benchmark=depth_completion&amp;result=d3d18ecb162e3406116294c19c41dcc77d6602f1">MSFF-Net</a></td>
+     <td class="results"></td>
+     <td class="results"></td>
+     <td class="results"> 2.81</td>
+     <td class="results"> 1.18</td>
+     <td class="results">832.90</td>
+     <td class="results">247.15</td>
+     <td class="results">0.06 s</td>
+     <td class="results">GPU @ 1.5 Ghz (Python)</td>
+     <td class="results"><input type="checkbox" value="d3d18ecb162e3406116294c19c41dcc77d6602f1" name="selected[]"></td>
+   </tr>
+   <tr>
+    <td class="results_sub" colspan="11"></td>
+   </tr>
+   <tr>
+    <td class="results">10</td>
+     <td class="results"><a href="http://www.cvlibs.net/datasets/kitti/eval_depth_detail.php?benchmark=depth_completion&amp;result=8be66a42000aafdb738281c8558b44d63f248af8">DDP</a></td>
+     <td class="results"></td>
+     <td class="results"></td>
+     <td class="results"><b> 2.10</b></td>
+     <td class="results"><b> 0.85</b></td>
+     <td class="results">832.94</td>
+     <td class="results"><b>203.96</b></td>
+     <td class="results">0.08 s</td>
+     <td class="results">GPU @ 1.5 Ghz (Python)</td>
+     <td class="results"><input type="checkbox" value="8be66a42000aafdb738281c8558b44d63f248af8" name="selected[]"></td>
+   </tr>
+   <tr>
+    <td class="results_sub" colspan="11"></td>
+   </tr>
+   <tr>
+    <td class="results">11</td>
+     <td class="results"><a href="http://www.cvlibs.net/datasets/kitti/eval_depth_detail.php?benchmark=depth_completion&amp;result=eaf9f755562d49c9da0c0bc4d1c989387ba16c4a">NConv-CNN-L1 (gd)</a></td>
+     <td class="results"></td>
+     <td class="results"><a href="https://github.com/abdo-eldesokey/nconv" target="blank">code</a></td>
+     <td class="results"> 2.52</td>
+     <td class="results"> 0.92</td>
+     <td class="results">859.22</td>
+     <td class="results">207.77</td>
+     <td class="results">0.02 s</td>
+     <td class="results">GPU @ 1.5 Ghz (Python)</td>
+     <td class="results"><input type="checkbox" value="eaf9f755562d49c9da0c0bc4d1c989387ba16c4a" name="selected[]"></td>
+   </tr>
+   <tr>
+    <td class="results_sub" colspan="11">A. Eldesokey, M. Felsberg and F. Khan: <a href="http://scholar.google.de/scholar?q=Confidence%20Propagation%20through%20CNNs%20for%20Guided%20Sparse%20Depth%20Regression"> Confidence Propagation through CNNs for 
+Guided Sparse Depth Regression</a>. arXiv preprint arXiv:1811.01791 2018.<br></td>
+   </tr>
+   <tr>
+    <td class="results">12</td>
+     <td class="results"><a href="http://www.cvlibs.net/datasets/kitti/eval_depth_detail.php?benchmark=depth_completion&amp;result=0341f124896a6e7cb3af1d40fc126c0a3e471cfd">LateFusion</a></td>
+     <td class="results"></td>
+     <td class="results"></td>
+     <td class="results"> 4.59</td>
+     <td class="results"> 2.25</td>
+     <td class="results">885.92</td>
+     <td class="results">347.61</td>
+     <td class="results">0.1 s</td>
+     <td class="results">GPU @ 1.5 Ghz (Python)</td>
+     <td class="results"><input type="checkbox" value="0341f124896a6e7cb3af1d40fc126c0a3e471cfd" name="selected[]"></td>
+   </tr>
+   <tr>
+    <td class="results_sub" colspan="11"></td>
+   </tr>
+   <tr>
+    <td class="results">13</td>
+     <td class="results"><a href="http://www.cvlibs.net/datasets/kitti/eval_depth_detail.php?benchmark=depth_completion&amp;result=afc4046399bd953cffb7274f6308ab2876241e23">Spade-RGBsD</a></td>
+     <td class="results"></td>
+     <td class="results"></td>
+     <td class="results"> 2.17</td>
+     <td class="results"> 0.95</td>
+     <td class="results">917.64</td>
+     <td class="results">234.81</td>
+     <td class="results">0.07 s</td>
+     <td class="results">GPU @ 2.5 Ghz (Python)</td>
+     <td class="results"><input type="checkbox" value="afc4046399bd953cffb7274f6308ab2876241e23" name="selected[]"></td>
+   </tr>
+   <tr>
+    <td class="results_sub" colspan="11">M. Jaritz, R. Charette, E. Wirbel, X. Perrotton and F. Nashashibi: <a href="http://scholar.google.de/scholar?q=Sparse%20and%20Dense%20Data%20with%20CNNs:%20Depth%20Completion%20and%20Semantic%20Segmentation"> Sparse and Dense Data with CNNs: Depth 
+Completion and Semantic Segmentation</a>. International Conference on 3D Vision 
+(3DV) 2018.<br></td>
+   </tr>
+   <tr>
+    <td class="results">14</td>
+     <td class="results"><a href="http://www.cvlibs.net/datasets/kitti/eval_depth_detail.php?benchmark=depth_completion&amp;result=633d3c72f5788283e1004d2c7abefade2d8cbd23">HMS-Net</a></td>
+     <td class="results"></td>
+     <td class="results"></td>
+     <td class="results"> 2.93</td>
+     <td class="results"> 1.14</td>
+     <td class="results">937.48</td>
+     <td class="results">258.48</td>
+     <td class="results">0.02 s</td>
+     <td class="results">GPU @ 2.5 Ghz (Python + C/C++)</td>
+     <td class="results"><input type="checkbox" value="633d3c72f5788283e1004d2c7abefade2d8cbd23" name="selected[]"></td>
+   </tr>
+   <tr>
+    <td class="results_sub" colspan="11">Z. Huang, J. Fan, S. Yi, X. Wang and H. Li: <a href="http://scholar.google.de/scholar?q=HMS-Net:%20Hierarchical%20Multi-scale%20Sparsity-invariant%20Network%20for%20Sparse%20Depth%20Completion"> HMS-Net: Hierarchical Multi-scale 
+Sparsity-invariant Network for Sparse Depth 
+Completion</a>. arXiv:1808.08685 2018.<br></td>
+   </tr>
+   <tr>
+    <td class="results">15</td>
+     <td class="results"><a href="http://www.cvlibs.net/datasets/kitti/eval_depth_detail.php?benchmark=depth_completion&amp;result=f1235f1026ea65fa4563ab76a6e8591d389580a7">Sparse-to-Dense (d)</a></td>
+     <td class="results"></td>
+     <td class="results"><a href="https://github.com/fangchangma/self-supervised-depth-completion" target="blank">code</a></td>
+     <td class="results"> 3.21</td>
+     <td class="results"> 1.35</td>
+     <td class="results">954.36</td>
+     <td class="results">288.64</td>
+     <td class="results">0.04 s</td>
+     <td class="results">GPU @ 1.5 Ghz (Python)</td>
+     <td class="results"><input type="checkbox" value="f1235f1026ea65fa4563ab76a6e8591d389580a7" name="selected[]"></td>
+   </tr>
+   <tr>
+    <td class="results_sub" colspan="11">F. Ma, G. Cavalheiro and S. Karaman: <a href="http://scholar.google.de/scholar?q=Self-supervised%20Sparse-to-Dense:%20Self-supervised%20Depth%20Completion%20from%20LiDAR%20and%20Monocular%20Camera"> Self-supervised Sparse-to-Dense: Self-
+supervised Depth Completion from LiDAR and 
+Monocular Camera</a>. arXiv preprint arXiv:1807.00275 2018.<br></td>
+   </tr>
+   <tr>
+    <td class="results">16</td>
+     <td class="results"><a href="http://www.cvlibs.net/datasets/kitti/eval_depth_detail.php?benchmark=depth_completion&amp;result=b2e9e78b55c65e055d034590319482cb834b972e">ASDD-Net</a></td>
+     <td class="results"></td>
+     <td class="results"></td>
+     <td class="results"> 2.89</td>
+     <td class="results"> 1.02</td>
+     <td class="results">1002.05</td>
+     <td class="results">234.17</td>
+     <td class="results">0.04 s</td>
+     <td class="results">GPU @ 2.0 Ghz (Python)</td>
+     <td class="results"><input type="checkbox" value="b2e9e78b55c65e055d034590319482cb834b972e" name="selected[]"></td>
+   </tr>
+   <tr>
+    <td class="results_sub" colspan="11"></td>
+   </tr>
+   <tr>
+    <td class="results">17</td>
+     <td class="results"><a href="http://www.cvlibs.net/datasets/kitti/eval_depth_detail.php?benchmark=depth_completion&amp;result=5b72abac87b7fcb01d300a95de97d944e2669fdc">MsCNN</a></td>
+     <td class="results"></td>
+     <td class="results"><a href="http://www.cvlibs.net/datasets/kitti/eval_depth.php?benchmark=depth_completion" target="blank">code</a></td>
+     <td class="results"> 3.62</td>
+     <td class="results"> 1.36</td>
+     <td class="results">1034.39</td>
+     <td class="results">301.15</td>
+     <td class="results">0.02 s</td>
+     <td class="results">GPU @ 1.5 Ghz (Python)</td>
+     <td class="results"><input type="checkbox" value="5b72abac87b7fcb01d300a95de97d944e2669fdc" name="selected[]"></td>
+   </tr>
+   <tr>
+    <td class="results_sub" colspan="11"></td>
+   </tr>
+   <tr>
+    <td class="results">18</td>
+     <td class="results"><a href="http://www.cvlibs.net/datasets/kitti/eval_depth_detail.php?benchmark=depth_completion&amp;result=db21467e0bebbe0434b92152ddaafd66c7acb2b9">Spade-sD</a></td>
+     <td class="results"></td>
+     <td class="results"></td>
+     <td class="results"> 2.60</td>
+     <td class="results"> 0.98</td>
+     <td class="results">1035.29</td>
+     <td class="results">248.32</td>
+     <td class="results">0.04 s</td>
+     <td class="results">GPU @ 2.5 Ghz (Python)</td>
+     <td class="results"><input type="checkbox" value="db21467e0bebbe0434b92152ddaafd66c7acb2b9" name="selected[]"></td>
+   </tr>
+   <tr>
+    <td class="results_sub" colspan="11">M. Jaritz, R. Charette, E. Wirbel, X. Perrotton and F. Nashashibi: <a href="http://scholar.google.de/scholar?q=Sparse%20and%20Dense%20Data%20with%20CNNs:%20Depth%20Completion%20and%20Semantic%20Segmentation"> Sparse and Dense Data with CNNs: Depth 
+Completion and Semantic Segmentation</a>. International Conference on 3D Vision 
+(3DV) 2018.<br></td>
+   </tr>
+   <tr>
+    <td class="results">19</td>
+     <td class="results"><a href="http://www.cvlibs.net/datasets/kitti/eval_depth_detail.php?benchmark=depth_completion&amp;result=d18ae8d410eeb7551a00872bca22ef590c0a41bd">Morph-Net</a></td>
+     <td class="results"></td>
+     <td class="results"></td>
+     <td class="results"> 3.84</td>
+     <td class="results"> 1.57</td>
+     <td class="results">1045.45</td>
+     <td class="results">310.49</td>
+     <td class="results">0.17 s</td>
+     <td class="results">GPU @ 1.5 Ghz (Matlab + C/C++)</td>
+     <td class="results"><input type="checkbox" value="d18ae8d410eeb7551a00872bca22ef590c0a41bd" name="selected[]"></td>
+   </tr>
+   <tr>
+    <td class="results_sub" colspan="11">M. Dimitrievski, P. Veelaert and W. Philips: <a href="http://scholar.google.de/scholar?q=Learning%20morphological%20operators%20for%20depth%20completion"> Learning morphological operators for depth completion</a>. Advanced Concepts for Intelligent Vision Systems 2018.<br></td>
+   </tr>
+   <tr>
+    <td class="results">20</td>
+     <td class="results"><a href="http://www.cvlibs.net/datasets/kitti/eval_depth_detail.php?benchmark=depth_completion&amp;result=75e31034bcb5bb235a117dd2cb61781fd12e82e9">DFN</a></td>
+     <td class="results"></td>
+     <td class="results"></td>
+     <td class="results"> 3.62</td>
+     <td class="results"> 1.79</td>
+     <td class="results">1206.66</td>
+     <td class="results">429.93</td>
+     <td class="results">0.08 s</td>
+     <td class="results">GPU @ 2.0 Ghz (C/C++)</td>
+     <td class="results"><input type="checkbox" value="75e31034bcb5bb235a117dd2cb61781fd12e82e9" name="selected[]"></td>
+   </tr>
+   <tr>
+    <td class="results_sub" colspan="11"></td>
+   </tr>
+   <tr>
+    <td class="results">21</td>
+     <td class="results"><a href="http://www.cvlibs.net/datasets/kitti/eval_depth_detail.php?benchmark=depth_completion&amp;result=8cb259c7fb6c00b6a08d216fa95e1691b78f6da9">NN+CNN2</a></td>
+     <td class="results"></td>
+     <td class="results"><a href="https://github.com/nischnei/depth_completion" target="blank">code</a></td>
+     <td class="results">12.80</td>
+     <td class="results"> 1.43</td>
+     <td class="results">1208.87</td>
+     <td class="results">317.76</td>
+     <td class="results">0.2 s</td>
+     <td class="results">GPU @ 2.5 Ghz (Python)</td>
+     <td class="results"><input type="checkbox" value="8cb259c7fb6c00b6a08d216fa95e1691b78f6da9" name="selected[]"></td>
+   </tr>
+   <tr>
+    <td class="results_sub" colspan="11"></td>
+   </tr>
+   <tr>
+    <td class="results">22</td>
+     <td class="results"><a href="http://www.cvlibs.net/datasets/kitti/eval_depth_detail.php?benchmark=depth_completion&amp;result=d08e37243e3e6f5a39406419cc081a3e746136bf">NConv-CNN (d)</a></td>
+     <td class="results"></td>
+     <td class="results"><a href="https://github.com/abdo-eldesokey/nconv" target="blank">code</a></td>
+     <td class="results"> 4.67</td>
+     <td class="results"> 1.52</td>
+     <td class="results">1268.22</td>
+     <td class="results">360.28</td>
+     <td class="results">0.01 s</td>
+     <td class="results">GPU @ 1.5 Ghz (Python)</td>
+     <td class="results"><input type="checkbox" value="d08e37243e3e6f5a39406419cc081a3e746136bf" name="selected[]"></td>
+   </tr>
+   <tr>
+    <td class="results_sub" colspan="11">A. Eldesokey, M. Felsberg and F. Khan: <a href="http://scholar.google.de/scholar?q=Propagating%20Confidences%20through%20CNNs%20for%20Sparse%20Data%20Regression"> Propagating Confidences through CNNs 
+for Sparse Data Regression</a>. 2018.<br></td>
+   </tr>
+   <tr>
+    <td class="results">23</td>
+     <td class="results"><a href="http://www.cvlibs.net/datasets/kitti/eval_depth_detail.php?benchmark=depth_completion&amp;result=c7f28c520ad682d64d66cbfc5e923e0e9769aad8">IP-Basic</a></td>
+     <td class="results"></td>
+     <td class="results"><a href="https://github.com/kujason/ip_basic" target="blank">code</a></td>
+     <td class="results"> 3.78</td>
+     <td class="results"> 1.29</td>
+     <td class="results">1288.46</td>
+     <td class="results">302.60</td>
+     <td class="results">0.011 s</td>
+     <td class="results">1 core @ &gt;3.5 Ghz (Python)</td>
+     <td class="results"><input type="checkbox" value="c7f28c520ad682d64d66cbfc5e923e0e9769aad8" name="selected[]"></td>
+   </tr>
+   <tr>
+    <td class="results_sub" colspan="11">J. Ku, A. Harakeh and S. Waslander: <a href="http://scholar.google.de/scholar?q=In%20Defense%20of%20Classical%20Image%20Processing:%20Fast%20Depth%20Completion%20on%20the%20CPU"> In Defense of Classical Image 
+Processing: Fast Depth Completion on the CPU</a>. arXiv preprint arXiv:1802.00036 2018.<br></td>
+   </tr>
+   <tr>
+    <td class="results">24</td>
+     <td class="results"><a href="http://www.cvlibs.net/datasets/kitti/eval_depth_detail.php?benchmark=depth_completion&amp;result=faa2603a7da75a246fc234c2966e417a5cfca40a">Sparse2Dense(w/o gt)</a></td>
+     <td class="results"></td>
+     <td class="results"><a href="https://github.com/fangchangma/self-supervised-depth-completion" target="blank">code</a></td>
+     <td class="results"> 4.07</td>
+     <td class="results"> 1.57</td>
+     <td class="results">1299.85</td>
+     <td class="results">350.32</td>
+     <td class="results">0.08 s</td>
+     <td class="results">GPU @ 1.5 Ghz (Python + C/C++)</td>
+     <td class="results"><input type="checkbox" value="faa2603a7da75a246fc234c2966e417a5cfca40a" name="selected[]"></td>
+   </tr>
+   <tr>
+    <td class="results_sub" colspan="11">F. Ma, G. Cavalheiro and S. Karaman: <a href="http://scholar.google.de/scholar?q=Self-supervised%20Sparse-to-Dense:%20Self-supervised%20Depth%20Completion%20from%20LiDAR%20and%20Monocular%20Camera"> Self-supervised Sparse-to-Dense: Self-
+supervised Depth Completion from LiDAR and 
+Monocular Camera</a>. arXiv preprint arXiv:1807.00275 2018.<br></td>
+   </tr>
+   <tr>
+    <td class="results">25</td>
+     <td class="results"><a href="http://www.cvlibs.net/datasets/kitti/eval_depth_detail.php?benchmark=depth_completion&amp;result=db825151cd0706a6be8cc9663ed54e397e478e50">ADNN</a></td>
+     <td class="results"></td>
+     <td class="results"><a href="https://github.com/nchodosh/Super-LiDAR" target="blank">code</a></td>
+     <td class="results">59.39</td>
+     <td class="results"> 3.19</td>
+     <td class="results">1325.37</td>
+     <td class="results">439.48</td>
+     <td class="results">.04 s</td>
+     <td class="results">GPU @ 2.5 Ghz (Python)</td>
+     <td class="results"><input type="checkbox" value="db825151cd0706a6be8cc9663ed54e397e478e50" name="selected[]"></td>
+   </tr>
+   <tr>
+    <td class="results_sub" colspan="11">S. Nathaniel Chodosh: <a href="http://scholar.google.de/scholar?q=Deep%20Convolutional%20Compressed%20Sensing%20for%20LiDAR%20Depth%20Completion"> Deep Convolutional Compressed Sensing for LiDAR Depth Completion</a>. Asian Conference on Computer Vision (ACCV) 2018.<br></td>
+   </tr>
+   <tr>
+    <td class="results">26</td>
+     <td class="results"><a href="http://www.cvlibs.net/datasets/kitti/eval_depth_detail.php?benchmark=depth_completion&amp;result=b6a55903a1920dbd360a1446e73c5a92fd914f63">NN+CNN</a></td>
+     <td class="results"></td>
+     <td class="results"></td>
+     <td class="results"> 3.25</td>
+     <td class="results"> 1.29</td>
+     <td class="results">1419.75</td>
+     <td class="results">416.14</td>
+     <td class="results">0.02 s</td>
+     <td class="results">GPU</td>
+     <td class="results"><input type="checkbox" value="b6a55903a1920dbd360a1446e73c5a92fd914f63" name="selected[]"></td>
+   </tr>
+   <tr>
+    <td class="results_sub" colspan="11">J. Uhrig, N. Schneider, L. Schneider, U. Franke, T. Brox and A. Geiger: <a href="http://scholar.google.de/scholar?q=Sparsity%20Invariant%20CNNs"> Sparsity Invariant CNNs</a>. International Conference on 3D Vision (3DV) 2017.<br></td>
+   </tr>
+   <tr>
+    <td class="results">27</td>
+     <td class="results"><a href="http://www.cvlibs.net/datasets/kitti/eval_depth_detail.php?benchmark=depth_completion&amp;result=aefce191417b2b11ce0142cbcef4362876a6635f">SparseConvs</a></td>
+     <td class="results"></td>
+     <td class="results"><a href="https://github.com/WHAAAT/sparse_convolution" target="blank">code</a></td>
+     <td class="results"> 4.94</td>
+     <td class="results"> 1.78</td>
+     <td class="results">1601.33</td>
+     <td class="results">481.27</td>
+     <td class="results">0.01 s</td>
+     <td class="results">GPU</td>
+     <td class="results"><input type="checkbox" value="aefce191417b2b11ce0142cbcef4362876a6635f" name="selected[]"></td>
+   </tr>
+   <tr>
+    <td class="results_sub" colspan="11">J. Uhrig, N. Schneider, L. Schneider, U. Franke, T. Brox and A. Geiger: <a href="http://scholar.google.de/scholar?q=Sparsity%20Invariant%20CNNs"> Sparsity Invariant CNNs</a>. International Conference on 3D Vision (3DV) 2017.<br></td>
+   </tr>
+   <tr>
+    <td class="results">28</td>
+     <td class="results"><a href="http://www.cvlibs.net/datasets/kitti/eval_depth_detail.php?benchmark=depth_completion&amp;result=1ec2442f51cd1f6422673aab5491bd6e34db416f">NadarayaW</a></td>
+     <td class="results"></td>
+     <td class="results"></td>
+     <td class="results"> 6.34</td>
+     <td class="results"> 1.84</td>
+     <td class="results">1852.60</td>
+     <td class="results">416.77</td>
+     <td class="results">0.05 s</td>
+     <td class="results">1 core @ 2.5 Ghz (Python)</td>
+     <td class="results"><input type="checkbox" value="1ec2442f51cd1f6422673aab5491bd6e34db416f" name="selected[]"></td>
+   </tr>
+   <tr>
+    <td class="results_sub" colspan="11">J. Uhrig, N. Schneider, L. Schneider, U. Franke, T. Brox and A. Geiger: <a href="http://scholar.google.de/scholar?q=Sparsity%20Invariant%20CNNs"> Sparsity Invariant CNNs</a>. International Conference on 3D Vision (3DV) 2017.<br></td>
+   </tr>
+   <tr>
+    <td class="results">29</td>
+     <td class="results"><a href="http://www.cvlibs.net/datasets/kitti/eval_depth_detail.php?benchmark=depth_completion&amp;result=776969e2b4a512f59a35934dd71aadfa4fb06e1b">SGDU</a></td>
+     <td class="results"></td>
+     <td class="results"></td>
+     <td class="results"> 7.38</td>
+     <td class="results"> 2.05</td>
+     <td class="results">2312.57</td>
+     <td class="results">605.47</td>
+     <td class="results">0.2 s</td>
+     <td class="results">4 cores @ 2.5 Ghz (C/C++)</td>
+     <td class="results"><input type="checkbox" value="776969e2b4a512f59a35934dd71aadfa4fb06e1b" name="selected[]"></td>
+   </tr>
+   <tr>
+    <td class="results_sub" colspan="11">N. Schneider, L. Schneider, P. Pinggera, U. Franke, M. Pollefeys and C. Stiller: <a href="http://scholar.google.de/scholar?q=Semantically%20Guided%20Depth%20Upsampling"> Semantically Guided Depth Upsampling</a>. German Conference on Pattern Recognition 2016.<br></td>
+   </tr>
+ </tbody></table></form>
+
+<center><a target="_blank" href="http://www.cvlibs.net/datasets/kitti/table_depth.php?benchmark=depth_completion&amp;mode=1"> Table as LaTeX</a> | <a target="_blank" href="http://www.cvlibs.net/datasets/kitti/table_depth.php?benchmark=depth_completion&amp;mode=2"> Only published Methods</a></center><br><br><br><br>
+
+</div></div>
+<div class="section">
+<h2 class="title">Related Datasets</h2>
+<div class="entry"><p>
+
+</p><ul>
+<li><a href="http://synthia-dataset.net/" target="_blank">SYNTHIA Dataset</a>: SYNTHIA is a collection of photo-realistic frames rendered from a virtual city and comes with precise pixel-level semantic annotations as well as pixel-wise depth information. The dataset consists of +200,000 HD images from video streams and +20,000 HD images from independent snapshots.</li>
+<li><a href="http://vision.middlebury.edu/stereo/" target="_blank">Middlebury Stereo Evaluation</a>: The classic stereo evaluation benchmark, featuring four test images in version 2 of the benchmark, with very accurate ground truth from a structured light system. 38 image pairs are provided in total.</li>
+<li><a href="http://make3d.cs.cornell.edu/data.html" target="_blank">Make3D Range Image Data</a>: Images with small-resolution ground truth used to learn and evaluate depth from single monocular images.</li>
+<li><a href="http://www.europe.naverlabs.com/Research/Computer-Vision/Proxy-Virtual-Worlds" target="_blank">Virtual KITTI Dataset</a>: Virtual KITTI contains 50 high-resolution monocular videos (21,260 frames) generated from five different virtual worlds in urban settings under different imaging and weather conditions. </li>
+<li><a href="https://lmb.informatik.uni-freiburg.de/resources/datasets/SceneFlowDatasets.en.html" target="_blank">Scene Flow Dataset</a>: The Freiburg Scene Flow Dataset collection has been used to train convolutional networks for disparity, optical flow, and scene flow estimation. The collection contains more than 39000 stereo frames in 960x540 pixel resolution, rendered from various synthetic sequences.</li>
+</ul>
+<p></p></div></div>
+
+<div class="section">
+<h2 class="title">Citation</h2>
+<div class="entry"><p>
+When using this dataset in your research, we will be happy if you cite us:<br>
+@INPROCEEDINGS{<a href="http://www.cvlibs.net/publications/Uhrig2017THREEDV.pdf">Uhrig2017THREEDV</a>,<br>
+&nbsp; author = {<a href="https://lmb.informatik.uni-freiburg.de/people/uhrigj/index.en.html" target="blank">Jonas Uhrig</a> and <a href="http://nick-schneider.me/" target="blank">Nick Schneider</a> and Lukas Schneider and <a href="http://www.uwe-franke.de/" target="blank">Uwe Franke</a> and <a href="https://lmb.informatik.uni-freiburg.de/people/brox/index.en.html" target="blank">Thomas Brox</a> and <a href="http://www.cvlibs.net/" target="blank">Andreas Geiger</a>},<br>
+&nbsp; title = {Sparsity Invariant CNNs},<br>&nbsp; booktitle = {International Conference on 3D Vision (3DV)},<br>
+&nbsp; year = {2017}<br>
+}
+<br>
+</p></div></div>
+
+  <div class="clearfix"></div>
+  <div class="tracker">
+  <div id="eXTReMe"><br><br><a href="http://extremetracking.com/open?login=votec">
+  <img src="./The KITTI Vision Benchmark Suite_files/i.gif" style="border: 0;" height="38" width="41" id="EXim" alt="eXTReMe Tracker"></a>
+  <script type="text/javascript"><!--
+  var EXlogin='votec' // Login
+  var EXvsrv='s10' // VServer
+  EXs=screen;EXw=EXs.width;navigator.appName!="Netscape"?
+  EXb=EXs.colorDepth:EXb=EXs.pixelDepth;
+  navigator.javaEnabled()==1?EXjv="y":EXjv="n";
+  EXd=document;EXw?"":EXw="na";EXb?"":EXb="na";
+  EXd.write("<img src=http://e1.extreme-dm.com",
+  "/"+EXvsrv+".g?login="+EXlogin+"&amp;",
+  "jv="+EXjv+"&amp;j=y&amp;srw="+EXw+"&amp;srb="+EXb+"&amp;",
+  "l="+escape(EXd.referrer)+" height=1 width=1>");//-->
+  </script><img src="./The KITTI Vision Benchmark Suite_files/s10.g" height="1" width="1"><noscript><div id="neXTReMe"><img height="1" width="1" alt=""
+  src="http://e1.extreme-dm.com/s10.g?login=votec&amp;j=n&amp;jv=n" />
+  </div></noscript></div>
+  </div>
+
+</div>
+<div class="clearfix">&nbsp;</div>
+</div>
+</div>
+
+<div id="footer" class="container">
+	<p>© 2019 | <a href="http://www.cvlibs.net/aboutme.html" target="_blank">Andreas Geiger</a> | <a href="http://www.cvlibs.net/" target="_blank">cvlibs.net</a> | <a href="http://www.freecsstemplates.org/" target="_blank">csstemplates</a></p>
+</div>
+
+
+
+
+
+</body></html>
