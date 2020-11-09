@@ -18,7 +18,7 @@
 
 - Reliability Diagram
 
-  <img src="./image-20201102140046542.png" alt="image-20201102140046542" style="zoom:30%;" />
+  <img src="https://tva1.sinaimg.cn/large/0081Kckwly1gkio4ggrc5j30rs0x4jxi.jpg" alt="image-20201102140046542" style="zoom:30%;" />
 
 上图中，bottom graph是 accuracy基于confidence的函数。Gap是实际acc和expected acc的差异。
 
