@@ -18,3 +18,19 @@
 - inference
   - 取heatmap上每个类别的前100峰值点：将heatmap上所有响应点与其连接的8个临近点相比较，如果响应点的响应>=临近点的值，则保留。
   - 令$ \hat{P_c} $是检测到的c类别的中心点的集合，$\hat{P}=\{\hat{x_i}, \hat{y_i}\}_{i=1}^n$。每个关键点坐标以整型坐标$（\hat{x_i}, \hat{y_i}）$的形式给出。$\hat{Y}_{x_iy_ic}$为inference conf。产生如下bbox：$$( \hat{x_i} + \delta\hat{x_i} - \hat{w_i}/2, \ \hat{y_i} + \delta\hat{y_i} - \hat{h_i}/2,\\ \hat{x_i} + \delta\hat{x_i} + \hat{w_i}/2, \ \hat{y_i} + \delta\hat{y_i} + \hat{h_i/2}) $$ 
+
+
+
+## gaussian
+
+```python
+class CTDetDataset(data.Dataset):
+  def __getitem__(self, index):
+    img_id = self.images[index]
+    file_name = self.coco_loadImgs(ids=[img_id])[0]['file_name']
+    img_path = os.path.join(self.img_dir, filename)
+    ann_ids = self.coco.getAnnIds(imgIds=[img_id])
+    anns = self.coco.loadAnns(ids=ann_ids)
+    num_objs = min(len(anns), self.max_objs)
+```
+
