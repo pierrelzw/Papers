@@ -8,7 +8,7 @@
 
 
 
-<img src="BayesianOD.assets/image-20201218181753454.png" alt="image-20201218181753454" style="zoom:50%;" />
+<img src="https://tva1.sinaimg.cn/large/0081Kckwly1gls8mxx8tgj30lo0csgog.jpg" alt="image-20201218181753454" style="zoom:50%;" />
 
 这是BOD的输出，青色=高度可信，桔色：轻度可信，红色：不可信
 
@@ -24,7 +24,7 @@
 
   
 
-  ![image-20201218182136061](BayesianOD.assets/image-20201218182136061.png)
+  ![image-20201218182136061](https://tva1.sinaimg.cn/large/0081Kckwly1gls8mydmvxj316s0e0jvo.jpg)
 
 ## 检测uncertainty estimation
 
