@@ -6,11 +6,11 @@
 
 ## 简介
 
-计算机视觉认为认为可以大体分为两类：分类和回归。比如最简单的图像分类，属于分类问题；目标检测问题，属于分类+回归问题；语义分割问题，属于分类问题；深度估计问题，属于回归问题。
+主流的计算机视觉任务，从根本上都可以归结为两类：分类和回归。比如最简单的图像分类，属于分类(image-level)；目标检测问题，属于分类+回归；语义分割，属于分类（pixel-level）；深度估计问题，属于回归（pixel-level）。
 
-这些问题都有很多SOTA的模型，然而，很少有模型会输出其对结果的不确定度。回归问题一般只输出结果，不输出不确定度，分类问题一般输出一个normalized score vector，但是实际上score并不是能很好地代表不确定度。
+针对这些问题，学界工业也设计了很多SOTA的模型。然而，大多数模型都缺乏一个非常重要的输出：模型对结果的确定程度——不确定度(uncertainty)。在regression任务中，模型直接回归结果，不输出不确定度；在classification任务中，模型一般经过softmax/sigmoid输出一个normalized score vector，而实际上，score并不能很好地代表不确定度。
 
-在Bayesian Modeling中，我们把uncertainty分为两种：aleatoric uncertainty(又称 data uncertainty) 和 epistemic uncertainty(i.e. model uncertainty)。aleatoric uncertainty是来源于数据本身，原始数据质量（e.g. 图像清晰度）、标注质量（e.g. 标注精度）等因素影响，无法通过增加数据解决；epistemic uncertainty则可以通过增加数据解决。
+在Bayesian Modeling中，我们把uncertainty分为两种：aleatoric uncertainty 和 epistemic uncertainty。aleatoric uncertainty是来源于数据，比如原始数据质量（e.g. 图像清晰度）、标注质量（e.g. 标注精度）等因素影响，无法通过增加标注数据解决；epistemic uncertainty又称model uncertainty，可以通过增加标注数据解决。
 
 ![image-20200730191542498](https://tva1.sinaimg.cn/large/007S8ZIlly1gh97vw2yndj31520kadm2.jpg)
 
@@ -24,96 +24,88 @@
 
 ## 本文贡献
 
-![image-20200730105539691](https://tva1.sinaimg.cn/large/007S8ZIlly1gh97vwr8tjj31bs0ek78n.jpg)
+<img src="https://tva1.sinaimg.cn/large/007S8ZIlly1gh97vwr8tjj31bs0ek78n.jpg" alt="image-20200730105539691" style="zoom:40%;" />
 
-1. 明确定义了什么是aleatoric uncertainty和epistemic uncertainty，并提出了一种新的建模分类不确定度的方法
-2. 通过bayesian modeling，在损失函数中考虑noisy data的影响，提升了模型性能1-3%。
-3. 研究了aleatoric 和 epistemic uncertainty的trade-off，综合考虑模型的推理时间和性能
+1. 明确定义了什么是aleatoric uncertainty和epistemic uncertainty，并提出了一种新的计算分类不确定度的方法
+2. 通过bayesian modeling计算不确定度，在损失函数中考虑noisy data的影响，提升了模型性能1-3%。
+3. 研究了aleatoric 和 epistemic uncertainty的trade-off，综合考虑模型的推理时间和性能。
 
 ## Epistemic Uncertainty
 
-在BNN中，我们假设模型参数 $W \sim \mathcal N(0,I)$ , 有deterministic NN不同，我们把BNN在参数的分布空间下得到的结果平均得到最后的结果（被称为marginalisation)。假设BNN的random output为 $f^W(x)$, 我们定义<u>Gaussian likelihood</u> 为$p(y|f^W(x))$
+在BNN(Bayesian Neural Network)中，我们假设模型参数 $W \sim \mathcal N(0,I)$ 。与deterministic NN不同，BNN中模型参数不是确定的，而是服从高斯分布。因此，我们把参数在其distribution下的结果平均得到最后的结果（被称为marginalisation)。
 
-给一个数据集 $X = {x_1, x_2, ... x_N}, Y={y_1, y_2, ..., y_N}$, bayesian inference 就是希望计算posterior over weights : $p(W|X,Y)$
+假设BNN的random output为 $f^W(x)$, 我们定义<u>Gaussian likelihood</u> 为$p(y|f^W(x))$。给一个数据集 $X = \{x_1, x_2, ... x_N\}, Y=\{y_1, y_2, ..., y_N\}$, 我们通过bayesian inference 计算posterior over weights : $p(W|X,Y)$。
 
-对regression任务，我们定义likelihood为Gaussian with mean，$p(y|f^W(x)) = \mathcal N(f^W(x), \sigma^2)$, 其中，$\sigma$是observation noise.
+- 对regression任务，我们定义likelihood为Gaussian with mean，$p(y|f^W(x)) = \mathcal N(f^W(x), \sigma^2)$, 其中，$\sigma$是observation noise.
 
-对classification任务，我们定义likelihood为 $p(y|f^W(x)) = Softmax(f^W(x))$
+- 对classification任务，我们定义likelihood为 $p(y|f^W(x)) = Softmax(f^W(x))$
 
-BNN中，计算最后结果的公式很容易给出：$p(W|X, Y)  = p(Y|X, W)P(W) / P(Y|X)$ ,但是无法计算（因为没法知道所有的weight W）。
+在BNN中，计算$p(W|X, Y)$的公式很容易给出：$p(W|X, Y)  = p(Y|X, W)P(W) / P(Y|X)$ ,但是无法求解（因为没法知道所有的W）。于是很多工作通过近似的方法求解，本质上就是求一个$p(W|X, Y)$的近似分布$q_{\theta}^*(W)$ 。
 
-于是很多工作通过近似的方法计算，其原理就是假设p(W|X, Y)和分布$q_{\theta}^*(W)$ 近似。
+Dropout variational inference就是一种近似求解方法。这种方法要求在每个weight layer后加dropout，然后在test阶段也使用dropout，并用Monte Carlo采样得到posterior P(W|X,Y)的近似。本质上，这种方法就是在找满足和posterior的KL divergence最小的 $q_{\theta}^*(W)$。
 
-Dropout variational inference就是一种近似求解方法，这种方法要求在每个weight layer后加Dropout，然后在test阶段也使用dropout，并用MonteCarlo采样得到posterior P(W|X,Y)的近似。本质上，这种方法就是在找满足和posterior的KL divergence最小的 $q_{\theta}^*(W)$。
 
-根据[An Introduction to Variational Methods for Graphical Models](https://people.eecs.berkeley.edu/~jordan/papers/variational-intro.pdf) 
 
 > Dropout 被认为是variantional bayesian approximation，其中approximation distribution是两个有着很小variance的高斯分布，且其中一个分布的mean是0；
 
-求解过程的最小化目标函数（loss）为：
+根据[An Introduction to Variational Methods for Graphical Models](https://people.eecs.berkeley.edu/~jordan/papers/variational-intro.pdf) ，求解过程的最小化目标函数（loss）为：
 $$
 \mathcal{L}(\theta, p) = -\frac{1}{N}\sum_{i=1}^{N}{\log{p(y_i|f^{\widehat{W_i}}(x_i))}} + \frac{1-p}{2N}||\theta||^2
 $$
 
 
-其中，N是数据点数，p是dropout probability， $\widehat{W}_i \sim q_{\theta}^*(W)$，其中，$\theta$是simple distribution's parameters to be optim
+其中，N是数据点数，p是dropout probability， $\widehat{W}_i \sim q_{\theta}^*(W)$，其中，$\theta$ 是我们想求解/近似的模型参数。
 
-对regression任务，如果假设我们的回归目标服Gaussian，则上式中的 $\log p$ 满足
+对regression任务，则上式中的 negative log likelihood : $\log p$ 可以简化为
 $$
 -\log{p(y_i|f^{\widehat{W_i}}(x_i))} \propto \frac{1}{2\sigma^2}||y_i-f^{\widehat{W_i}}(x_i)||^2 + \frac{1}{2}\log{\sigma^2}
 $$
-补充，Gaussian probability density 
+补充，Gaussian probability density : $mean=\mu, std=\sigma$
 $$
 g(x) = \frac{1}{\sigma\sqrt{2\pi}}exp(-\frac{||x-\mu||^2}{2\sigma^2})
 $$
 
 
+
+**那么，我们到底如何计算epistemic uncertain呢？**
+
+
 - **classification**
-  $$
-  p(x) = \frac{1}{1+e^{-x}} = \frac{e^x}{e^x+1}
-  $$
-  
-  
   
   Epidemic Uncertainty approximation：
   
 $$
-  p(y=c|x,X,Y)\approx\frac{1}{T}\sum_{t=1}^{T}Softmax(f^{\widehat{W}_i}(x))
+p(y=c|x,X,Y)\approx\frac{1}{T}\sum_{t=1}^{T}Softmax(f^{\widehat{W}_i}(x))
 $$
 
-
-
-
-  The uncertainty of probability vector **p** : 
 $$
-  H(p) = -\sum_{c=1}^{C}p_c\log(p_c)
+Softmax(x) = \frac{1}{1+e^{-x}} = \frac{e^x}{e^x+1}
 $$
+
+​		The uncertainty of probability vector **p** : 
+$$
+H(p) = -\sum_{c=1}^{C}p_c\log(p_c)
+$$
+
+​		对分类任务，我们通过取多次random output结果的平均值得到final output，而uncertainty则用分类结果的entropy表示。
 
 - **Regression**
   
-  
-  
   Epidemic Uncertainty = predictive variance :
 $$
-  Var(y)\approx\sigma^2+\frac{1}{T}\sum_{t=1}^{T}f^{\widehat{W_t}}(x)^Tf^{\widehat{W_t}}(x_t) - {E(y)^T}{E(y)}
+Var(y)\approx\sigma^2+\frac{1}{T}\sum_{t=1}^{T}f^{\widehat{W_t}}(x)^Tf^{\widehat{W_t}}(x_t) - {E(y)^T}{E(y)}
 $$
 
-  
-
-
-  approximationn predictive mean: 
 $$
-  E(y) = \frac{1}{T}\sum_{t=1}^{T}f^{\widehat{W}_t}(x)
+E(y) = \frac{1}{T}\sum_{t=1}^{T}f^{\widehat{W}_t}(x)
 $$
-  $\sigma^2$ : the amount of noise inherent in the data 
-
-  
+​    		我们用variance作为regression target的uncertainty。对一个我们希望回归的变量，variance越大， 则uncertainty越大。其中，  $\sigma^2$ 代表数据中的noise。E(y)则是多次结果的平均值。
 
 ##  Aleatoric Uncertainty
 
-对回归任务，有两种随机不确定度，一种是同质的，一种是异质的。
+epistemic uncertainty是来源于模型的不确定度，可以通过增加训练数据逐渐降低。而aleatoric uncertainty(随机不确定度)是来源于数据的不确定度。对回归任务，有两种aleatoric uncertainty，一种是同质的(Homoscedastic)，一种是异质的(Heteroscedastic)。~ 简单来说，同质aleatoric uncertainty是样本无关的，对所有数据来说都有这个问题，比如相机成像。而异质aleatoric uncertainty是data-dependent的，比如图像近处的远处的成像质量不一样 ~ 
 
-- Homoscedastic regression
+- Homoscedastic regression（同质）
 
   > Homoscedastic regression assumes constant observation noise σ for every input point x.
 
@@ -124,14 +116,15 @@ $$
   与输入数据有关的随机不确定性。比如，在深度估计任务中，一张图像是颜色一样的一面墙，另一张是包含vanishing lines的图像，前者的uncertainty应该比后者高。
   
   > 在非BNN网络中， observation noise被作为模型的weight decay然后被忽略
+  >
+  > 如果说噪声 是data-dependent的，那么我们可以用网络学习它：
   
-  可是，如果说噪声 是data-dependent的，那么我们可以用网络学习它：
   $$
   \mathcal L_{NN}(\theta) = \frac{1}{N}\sum_i \frac{1}{2\sigma(x_i)^{2}}||y_i-f(x_i) ||^2 + \frac{1}{2}\log \sigma(x_i)^2
   $$
-  这个loss将被添加一个weight decay参数$\lambda$. 需要提醒的是，这里variational inference没有考虑所有可能的参数$\theta$，我们用的是MAP（Maximum a posteriori estimation）——只计算一种可能的$\theta$.
+  这个loss将被添加一个weight decay参数$\lambda$. 需要提醒的是，这里variational inference没有考虑所有可能的参数$\theta$，我们这里使用最大后验概率估计MAP（Maximum a posteriori estimation）——只计算一种可能的$\theta$.
   
-  > 这种方法不能获得model uncertainty，因为epistemic uncertainty是模型property不是数据的。
+  > 这种方法不能获得model uncertainty，因为epistemic uncertainty是模型property不是数据property。
 
 ## Combine Heteroscedastic Aleatoric & Epistemic Uncertainty
 
@@ -212,7 +205,9 @@ $$
 
 ## 如何计算variance？ network estimation
 
-不管是分类还是回归，都用一层网络层预测variance（实际上是$\log \sigma^2$）
+不管是分类还是回归，都用一层网络层预测variance（实际上是$\log \sigma^2$）。
+
+以检测为例，因为最后用来预测结果的feature map是2d的，所以分别添加一层卷积层（或者说只有一层的网络分支）来预测variance。
 
 https://github.com/asharakeh/pod_compare/blob/7784b0b45fc6e6ee17e87132c75fa9583004e57f/src/probabilistic_modeling/probabilistic_retinanet.py#L457
 
@@ -319,11 +314,12 @@ else:
 ##  TODO
 
 - 结合fata和model uncertainty的方法
-- 实验
 
 
 
 ## Reference
+
+
 
 [机器之心：如何创造可信任的机器学习模型？先要理解不确定性](https://mp.weixin.qq.com/s?__biz=MzA3MzI4MjgzMw==&mid=2650755237&idx=3&sn=55beb3edcef0bb4ded4b56e1379efbda&scene=0#wechat_redirect) 推荐指数\****
 
