@@ -130,7 +130,7 @@ epistemic uncertainty是来源于模型的不确定度，可以通过增加训�
 
 > 我们看到在regression任务中，aleatoric uncertainty可以被解释为learned loss attenuation——能够使模型对noisy data更robust。我们把heteroscedastic regression中的方法推广到classification任务中。
 
-我们假设用gaussianc likehood来建模aleatoric uncertainty，则此时我们希望最小化的目标函数为：
+我们假设用gaussian likehood来建模aleatoric uncertainty，则此时我们希望最小化的目标函数为：
 $$
 \mathcal L_{BNN}(\theta) = \frac{1}{D}\sum_i \frac{1}{2}\hat\sigma_i^{-2}||y_i-\hat y_i||^2 + \frac{1}{2}\log \hat\sigma_i^2
 $$
@@ -140,7 +140,7 @@ $$
 
 - 可以防止网络趋向于把所有datapoint的variance学得很大。
 - 太大uncertainty的datapoint（noise？）会被惩罚，网络会趋向于忽略这样的数据
-- 同时，网络会抑制，低uncertainty但是高residual的样本，因为这样第一项会很大
+- 同时，网络会抑制，低uncertainty但是高residual的样本（为这样第一项会很大
 
 这使得网络对noise data更加robust，因为（网络收敛时？）高uncertainty的样本，其对loss的贡献会更小。
 
