@@ -1,3 +1,11 @@
+# 可以用神经网络直接学uncertainty么？
+
+我们之前的文章[2](#2)介绍了一些计算模型uncertainty的方法，比如用MC Dropout啦，ensemble啦，这些本质上，就是投票。多个模型对同一输入进行inference，大家意见越不统一，则这个样本的不确定度越大。这种方法的一大问题，就是需要多次inference，对有实时性要求的任务几乎不可能。
+
+于是我们不禁想：那有没有可能直接用网络学uncertainty呢？答案是有可能的，这种方法被称为direct modeling方法。
+
+本文以Regression任务为例，只从loss函数的角度，理解如何用direct modeling方法（直接用网络学）做uncertainty estimation。
+
 ## 为什么需要不确定度（uncertainty）？
 
 深度学习模型已经在各类视觉任务上取得了非常好的效果。但是有一个普遍的问题是：不管遇到什么情况，模型总能给出一个结果。即使你让一个猫狗分类模型对一张“只包含一个人的图片”进行预测，模型也(不得不)输出结果(猫或狗)，有的时候甚至给出非常高的score。
@@ -8,7 +16,7 @@
 
 ## 如何让网络输出不确定度？
 
-那么如何能够让模型输出不确定度呢？贝叶斯网络(BNN)是常用的方法。下面以regression任务为例解释。
+下面以regression任务为例解释。
 
 如果是纯regression问题，loss可以定义为：
 $$
@@ -42,19 +50,27 @@ $$
 $$
 这么做可以避免除以0的情况，因为exp是positive的，可以避免除以0的情况。而且，log可以降低回归变量variance的scale，比较利于学习。
 
+说了这么多，代码呢？不着急，先理解insight，代码可以参考[2](#2)。或者，等我下一篇更新。
 
+### 后记
 
-另外，有比较解释一下，为什么学习$\sigma^2$是可能的。是因为有的时候，模型不确定度和input data的确是相关的。举例来说，在depth regression任务中，模型预测特征明显的物体边缘的depth，就会比预测一面白墙的depth更加容易、更加确定。在检测任务中，物体边缘清晰时，回归bbox也会比物体边缘不清晰（e.g.逆光、下雨等造成物体边缘成像模糊）容易、且确定度更高。
+回到我们的标题，为什么学习$\sigma^2$(uncertainty)是可能的，即为什么$\sigma$可以是输入x的函数？是因为有的时候，模型不确定度和input data的确是相关的。举例来说，在depth regression任务中，模型预测特征明显的物体边缘的depth，就会比预测一面白墙的depth更加容易、更加确定。在检测任务中，物体边缘清晰时，回归bbox也会比物体边缘不清晰（e.g.逆光、下雨等造成物体边缘成像模糊）容易、且确定度更高。
 
 以上的例子假设数据是足够的。 那么如果数据不是足够的，也会产生不确定度。这种由于数据不够产生（即意味着可以通过增加标注数据解决）的不确定度被称为模型不确定度(也成espistemic uncertainty)。关于它如何建模计算，可以查阅参考文献。
+
+这篇文章只讲了Regression任务中的uncertainty estimation。那能不能推广到分类任务呢？结论当然是可以，详情见参考文献 [1](#1)  [2](#2)
+
+
 
 
 
 ## 参考文献
 
-[What Uncertainties Do We Need in Bayesian Deep Learning for Computer Vision?](https://papers.nips.cc/paper/2017/file/2650d6089a6d640c5e85b2b88265dc2b-Paper.pdf)
+[ What Uncertainties Do We Need in Bayesian Deep Learning for Computer Vision?](https://papers.nips.cc/paper/2017/file/2650d6089a6d640c5e85b2b88265dc2b-Paper.pdf) <span id="1"> 1</span>
 
-[Uncertainty in Deep Learning. How To Measure?](https://towardsdatascience.com/my-deep-learning-model-says-sorry-i-dont-know-the-answer-that-s-absolutely-ok-50ffa562cb0b)
+[ A Review and Comparative Study on Probabilistic Object Detection in Autonomous Driving](https://arxiv.org/abs/2011.10671) <span id="2"> 2</span>
 
-[Uncertainty Estimation in CV](https://zhuanlan.zhihu.com/p/166617220)
+[Uncertainty in Deep Learning. How To Measure?](https://towardsdatascience.com/my-deep-learning-model-says-sorry-i-dont-know-the-answer-that-s-absolutely-ok-50ffa562cb0b) <span id="3"> 3</span>
+
+[Uncertainty Estimation in CV](https://zhuanlan.zhihu.com/p/166617220) <span id="1"> 4</span>
 

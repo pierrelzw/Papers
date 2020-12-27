@@ -1,10 +1,16 @@
 # What Uncertainties Do We Need in Bayesian Deep Learning for Computer Vision?
 
+[TOC]
+
+> https://arxiv.org/abs/1703.04977
+>
 > Yarin Gal  University of Cambridge  yg279@cam.ac.uk
 >
 > Alex Kendall University of Cambridge agk34@cam.ac.uk
 
 ## 简介
+
+
 
 主流的计算机视觉任务，从根本上都可以归结为两类：分类和回归。比如最简单的图像分类，属于分类(image-level)；目标检测问题，属于分类+回归；语义分割，属于分类（pixel-level）；深度估计问题，属于回归（pixel-level）。
 
@@ -203,7 +209,7 @@ $$
 
 
 
-## 如何计算variance？ network estimation
+## 如何计算variance？ 用神经网络学！
 
 不管是分类还是回归，都用一层网络层预测variance（实际上是$\log \sigma^2$）。
 
@@ -306,14 +312,6 @@ else:
   ) / max(1, self.loss_normalizer)
 
 ```
-
-
-
-
-
-##  TODO
-
-- 结合fata和model uncertainty的方法
 
 
 
