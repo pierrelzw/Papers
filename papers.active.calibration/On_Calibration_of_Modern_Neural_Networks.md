@@ -20,7 +20,7 @@
 
   <img src="https://tva1.sinaimg.cn/large/0081Kckwly1gkio4ggrc5j30rs0x4jxi.jpg" alt="image-20201102140046542" style="zoom:30%;" />
 
-上图中，bottom graph是 accuracy基于confidence的函数。Gap是实际acc和expected acc的差异。
+上图中，bottom graph是 accuracy基于confidence的函数。Gap是实际acc和expected acc的差异，我们成为ECE（Expected Calibration Error）。
 
 把conf分为M个区间，定义$B_m$是预测结果conf落入第m个区间的sample ind的集合：
 $$
@@ -81,7 +81,7 @@ $$
 
 ## 结论
 
-<img src="/Users/lizhiwei/Documents/papers/papers.active.calibration/image-20201104110606479.png" alt="image-20201104110606479" style="zoom:50%;" />
+<img src="https://i.loli.net/2021/01/05/r9xtPYVJoQZWDeH.png" alt="image-20201104110606479" style="zoom:50%;" />
 
 增加网络Depth、增加每层的conv数和使用BN，可以降低Error，但是会导致ECE上升。增加weight_decay可以在降低Error的同时降低ECE，具备更好的calibration效果。
 
@@ -98,7 +98,6 @@ $$
   f_{t}^{reg}(\theta) = f_t(\theta) + \frac{\lambda^{'}}{2}||\theta||^2
   $$
   
-
 - weight decay
 
   $\theta$ 更新：在每次更新梯度的时候减去，多减去$\lambda$的系数
