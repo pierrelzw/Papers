@@ -42,7 +42,7 @@
 
 - 实验结果
 
-  <img src="./image-20200820175737034.png" alt="image-20200820175737034" style="zoom:33%;" />
+  <img src="https://tva1.sinaimg.cn/large/008eGmZEly1gox359gpvtj30my0k4762.jpg" alt="image-20200820175737034" style="zoom:33%;" />
 
   在CIFAR-10上的实验结果：
 

@@ -59,6 +59,7 @@
 - Brier score
 
 - ECE(Expected Calibration Error)
+  
   - 
 - $\tau$
 
@@ -66,7 +67,7 @@
 
 
 
-<img src="./image-20200729111022442.png" alt="image-20200729111022442" style="zoom:50%;" />
+<img src="https://tva1.sinaimg.cn/large/008eGmZEly1gox36gfgjqj316m0mk0xj.jpg" alt="image-20200729111022442" style="zoom:50%;" />
 
-<img src="./image-20200729111107470.png" alt="image-20200729111107470" style="zoom:50%;" />
+<img src="https://tva1.sinaimg.cn/large/008eGmZEly1gox36fxwiej31760ng78v.jpg" alt="image-20200729111107470" style="zoom:50%;" />
 
